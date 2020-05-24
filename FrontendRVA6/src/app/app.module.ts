@@ -1,3 +1,7 @@
+import { StavkaPorudzbineDialogComponent } from './components/dialogs/stavka-porudzbine-dialog/stavka-porudzbine-dialog.component';
+import { PorudzbinaDialogComponent } from './components/dialogs/porudzbina-dialog/porudzbina-dialog.component';
+import { DobavljacDialogComponent } from './components/dialogs/dobavljac-dialog/dobavljac-dialog.component';
+import { ArtiklDialogComponent } from './components/dialogs/artikl-dialog/artikl-dialog.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PorudzbinaService } from './services/porudzbina.service';
 import { ArtiklService } from 'src/app/services/artikl.service';
@@ -37,8 +41,6 @@ import { ArtiklComponent } from './components/artikl/artikl.component';
 import { DobavljacComponent } from './components/dobavljac/dobavljac.component';
 import { PorudzbinaComponent } from './components/porudzbina/porudzbina.component';
 import { StavkaPorudzbineComponent } from './components/stavka-porudzbine/stavka-porudzbine.component';
-import { DobavljacService } from './services/dobavljac.service';
-import { StavkaPorudzbineService } from './services/stavka-porudzbine.service';
 
 
 @NgModule({
@@ -52,7 +54,11 @@ import { StavkaPorudzbineService } from './services/stavka-porudzbine.service';
     ArtiklComponent,
     DobavljacComponent,
     PorudzbinaComponent,
-    StavkaPorudzbineComponent
+    StavkaPorudzbineComponent,
+    ArtiklDialogComponent,
+    DobavljacDialogComponent,
+    PorudzbinaDialogComponent,
+    StavkaPorudzbineDialogComponent
   ],
   imports: [
     BrowserModule,

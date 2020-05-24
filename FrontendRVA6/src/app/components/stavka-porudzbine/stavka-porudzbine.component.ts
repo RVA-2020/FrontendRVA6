@@ -6,6 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { StavkaPorudzbineService } from 'src/app/services/stavka-porudzbine.service';
 import { MatDialog } from '@angular/material/dialog';
+import { Artikl } from 'src/app/models/artikl';
+import { StavkaPorudzbineDialogComponent } from '../dialogs/stavka-porudzbine-dialog/stavka-porudzbine-dialog.component';
 
 @Component({
   selector: 'app-stavka-porudzbine',
@@ -21,7 +23,8 @@ export class StavkaPorudzbineComponent implements OnInit, OnChanges {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public stavkaPorudzbineService: StavkaPorudzbineService) { }
+  constructor(public stavkaPorudzbineService: StavkaPorudzbineService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -38,7 +41,7 @@ export class StavkaPorudzbineComponent implements OnInit, OnChanges {
     this.stavkaPorudzbineService.getStavkeZaPorudzbinu(this.selektovanaPorudzbina.id)
       .subscribe(data => {
         this.dataSource = new MatTableDataSource(data);
-        //pretraga po nazivu ugnježdenog objekta
+        // pretraga po nazivu ugnježdenog objekta
         this.dataSource.filterPredicate = (data, filter: string) => {
           const accumulator = (currentTerm, key) => {
             return key === 'artikl' ? currentTerm + data.artikl.naziv : currentTerm + data[key];
@@ -48,7 +51,7 @@ export class StavkaPorudzbineComponent implements OnInit, OnChanges {
           return dataStr.indexOf(transformedFilter) !== -1;
         };
 
-        //sortiranje po nazivu ugnježdenog objekta
+        // sortiranje po nazivu ugnježdenog objekta
         this.dataSource.sortingDataAccessor = (data, property) => {
           switch (property) {
             case 'artikl': return data.artikl.naziv.toLocaleLowerCase();
@@ -60,6 +63,26 @@ export class StavkaPorudzbineComponent implements OnInit, OnChanges {
         this.dataSource.sort = this.sort;
       });
 
+  }
+
+  public openDialog(flag: number, id?: number, redniBroj?: number, kolicina?: number, jedinicaMere?: number,
+                    cena?: number, porudzbina?: Porudzbina, artikl?: Artikl) {
+    const dialogRef = this.dialog.open(StavkaPorudzbineDialogComponent, {
+      data: {
+        i: id, id, redniBroj, kolicina, jedinicaMere,
+        cena, porudzbina, artikl
+      }
+    });
+    dialogRef.componentInstance.flag = flag;
+    if (flag === 1) {
+      dialogRef.componentInstance.data.porudzbina = this.selektovanaPorudzbina;
+    }
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.loadData();
+      }
+    });
   }
 
   applyFilter(filterValue: string) {

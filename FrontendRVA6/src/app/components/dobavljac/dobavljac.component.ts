@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { DobavljacService } from 'src/app/services/dobavljac.service';
 import { MatDialog } from '@angular/material/dialog';
+import { DobavljacDialogComponent } from '../dialogs/dobavljac-dialog/dobavljac-dialog.component';
 
 @Component({
   selector: 'app-dobavljac',
@@ -20,7 +21,8 @@ export class DobavljacComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(public dobavljacService: DobavljacService) { }
+  constructor(public dobavljacService: DobavljacService,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.loadData();
@@ -33,7 +35,20 @@ export class DobavljacComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-}
+  }
+
+  public openDialog(flag: number, id?: number, adresa?: string, naziv?: string, kontakt?: string) {
+    const dialogRef = this.dialog.open(DobavljacDialogComponent,
+       { data: { id, adresa, naziv, kontakt } });
+
+    dialogRef.componentInstance.flag = flag;
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.loadData();
+      }
+    });
+  }
 
   applyFilter(filterValue: string){
     filterValue = filterValue.trim();

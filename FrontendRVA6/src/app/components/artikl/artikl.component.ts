@@ -6,6 +6,7 @@ import { Artikl } from 'src/app/models/artikl';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
+import { ArtiklDialogComponent } from '../dialogs/artikl-dialog/artikl-dialog.component';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class ArtiklComponent implements OnInit {
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: false}) sort: MatSort;
 
-  constructor(private artiklService: ArtiklService) { }
+  constructor(private artiklService: ArtiklService,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     console.log('Inicijalizacija Artikl komponente!');
@@ -34,6 +36,20 @@ export class ArtiklComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    });
+  }
+
+  public openDialog(flag: number, id?: number, naziv?: string, proizvodjac?: string){
+    const dialogRef = this.dialog.open(ArtiklDialogComponent,
+                                        {data: {id, naziv, proizvodjac}}
+    );
+
+    dialogRef.componentInstance.flag = flag;
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 1) {
+        this.loadData();
+      }
     });
   }
 

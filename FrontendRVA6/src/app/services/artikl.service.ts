@@ -8,7 +8,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 })
 export class ArtiklService {
 
-  private readonly API_URL = 'http://localhost:8083/artikl/';
+  // End Point u Development mode-u
+  // private readonly API_URL = 'http://localhost:8083/artikl/';
+
+  // End Point u Deployment mode-u
+  private readonly API_URL = 'https://backend-rva.herokuapp.com/artikl/';
 
   dataChange: BehaviorSubject<Artikl[]> = new BehaviorSubject<Artikl[]>([]);
 

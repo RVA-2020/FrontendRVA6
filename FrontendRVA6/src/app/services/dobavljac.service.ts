@@ -8,7 +8,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 })
 export class DobavljacService {
 
-    private readonly API_URL = 'http://localhost:8083/dobavljac/';
+    // End Point u Development mode-u
+    // private readonly API_URL = 'http://localhost:8083/dobavljac/';
+
+    // End Point u Deployment mode-u
+    private readonly API_URL = 'https://backend-rva.herokuapp.com/dobavljac/';
 
     dataChange: BehaviorSubject<Dobavljac[]> = new BehaviorSubject<Dobavljac[]>([]);
 

@@ -8,8 +8,13 @@ import { StavkaPorudzbine } from '../models/stavkaPorudzbine';
 })
 export class StavkaPorudzbineService {
 
-  private readonly API_URL = 'http://localhost:8083/stavkaPorudzbine/';
-  private readonly API_URL_BYID = 'http://localhost:8083/stavkeZaPorudzbinaId/';
+  // End Point u Development mode-u
+  // private readonly API_URL = 'http://localhost:8083/stavkaPorudzbine/';
+  // private readonly API_URL_BYID = 'http://localhost:8083/stavkeZaPorudzbinaId/';
+
+  // End Point u Deployment mode-u
+  private readonly API_URL = 'https://backend-rva.herokuapp.com/stavkaPorudzbine/';
+  private readonly API_URL_BYID = 'https://backend-rva.herokuapp.com/stavkeZaPorudzbinaId/';
 
   dataChange: BehaviorSubject<StavkaPorudzbine[]> = new BehaviorSubject<StavkaPorudzbine[]>([]);
 

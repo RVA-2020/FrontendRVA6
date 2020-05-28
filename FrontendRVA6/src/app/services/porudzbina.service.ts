@@ -7,7 +7,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PorudzbinaService {
-  private readonly API_URL = 'http://localhost:8083/porudzbina/';
+
+  // End Point u Development mode-u
+  // private readonly API_URL = 'http://localhost:8083/porudzbina/';
+
+  // End Point u Deployment mode-u
+  private readonly API_URL = 'https://backend-rva.herokuapp.com/porudzbina/';
 
   dataChange: BehaviorSubject<Porudzbina[]> = new BehaviorSubject<Porudzbina[]>([]);
 

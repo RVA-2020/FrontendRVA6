@@ -1,3 +1,5 @@
+## Aplikaciji je moguce pristupiti na https://rva-2020.github.io/FrontendRVA6/
+
 ## Preuzimanje projekta
 
 Ukoliko nije instaliran, potrebno je instalirati [Git](https://git-scm.com/download/win) na računaru.
